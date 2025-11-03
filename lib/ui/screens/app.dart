@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:untitled/ui/screens/flash_screen.dart';
+
+class TaskManagerApp extends StatefulWidget {
+  const TaskManagerApp({super.key});
+
+  @override
+  State<TaskManagerApp> createState() => _TaskManagerAppState();
+}
+
+class _TaskManagerAppState extends State<TaskManagerApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Task Manager',
+      home: FlashScreen(),
+    );
+  }
+}
