@@ -1,16 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
+import 'package:untitled/ui/screens/sign_up_screen.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
-  final String name = '/log-in-screen';
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
+  final String name = '/sign-in-screen';
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,34 +23,47 @@ class _LogInScreenState extends State<LogInScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 15,
+            spacing: 10,
             children: [
               const SizedBox(height: 100),
-              Text('Get Started With', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+              Text(
+                'Get Started With',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               TextField(decoration: InputDecoration(hintText: 'Email')),
               TextField(decoration: InputDecoration(hintText: 'Password')),
               FilledButton(
-                onPressed: () {},
+                onPressed: _onSignUp,
                 style: FilledButton.styleFrom(),
-                child: Icon(Icons.arrow_forward_ios_outlined),
+                child: Icon(Icons.arrow_circle_right_outlined, size: 30,),
               ),
               const SizedBox(height: 40),
               Center(
                 child: Column(
                   children: [
-                    TextButton(onPressed: (){}, child: Text('Forgot Password?', style: TextStyle(fontSize: 18),)),
-                    RichText(text: TextSpan(
+                    TextButton(
+                      onPressed: _onForgotPasswordEmail,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    RichText(
+                      text: TextSpan(
                         text: 'Don\'t have an account? ',
                         style: TextStyle(color: Colors.grey, fontSize: 18),
                         children: [
-                          TextSpan(text: 'Sign Up', style: TextStyle(color: Colors.green), recognizer: TapGestureRecognizer()..onTap = () {} )
-                        ]
+                          TextSpan(
+                            text: 'Sign Up',
+                            style: TextStyle(color: Colors.green),
+                            recognizer: TapGestureRecognizer()..onTap = _onSignUp,
+                          ),
+                        ],
+                      ),
                     ),
-                    )
                   ],
                 ),
-              )
-
+              ),
             ],
           ),
         ),
@@ -55,11 +71,11 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  void _onForgotPasswordEmail() {
+    Navigator.pushNamed(context, ForgotPasswordEmailScreen().name);
+  }
 
-  void _onNavigate(){}
-
-  void _onForgotPassword(){}
-
-  void _onSignUp(){}
-
+  void _onSignUp() {
+    Navigator.pushNamed(context, SignUpScreen().name);
+  }
 }

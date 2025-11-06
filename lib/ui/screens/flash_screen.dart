@@ -22,7 +22,7 @@ class _FlashScreenState extends State<FlashScreen> {
 
   Future<void> _navigateToNextPage() async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogInScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInScreen()));
   }
 
   @override
