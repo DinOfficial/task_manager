@@ -15,10 +15,10 @@ class _FlashScreenState extends State<FlashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigate();
+    _navigateToNextPage();
   }
 
-  Future<void> _navigate() async {
+  Future<void> _navigateToNextPage() async {
     await Future.delayed(const Duration(seconds: 2));
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
   }
