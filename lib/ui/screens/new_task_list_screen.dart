@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/task_card.dart';
 import 'add_new_task_screen.dart';
 
 class NewTaskListScreen extends StatefulWidget {
@@ -30,8 +31,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    height: 100,
-                    width: 130,
+                    width: 100,
                     child: ListTile(
                       title: Text('12', style: textTheme.titleLarge?.copyWith(color: Colors.black87),),
                       subtitle: Text('Canceled',style: textTheme.labelLarge?.copyWith(color: Colors.grey),),
@@ -47,26 +47,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text('This is task title '),
-                    subtitle: Column(
-                      children: [
-                        Text('this is a task description where appear everything details'),
-                        Text('Date: 12 june 2025'),
-                        Row(
-                          children: [
-                            Container(
-                              child: Text('New'),
-                            ), 
-                            Spacer(),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.edit))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                return TaskCard();
               },
             ),
           ),
@@ -85,3 +66,4 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
     Navigator.pushNamed(context, AddNewTaskScreen().name);
   }
 }
+

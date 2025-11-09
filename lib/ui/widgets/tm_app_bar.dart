@@ -8,36 +8,38 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _onTapProfile(){
-      Navigator.pushNamed(context, ProfileScreen().name);
+    void onTapProfile(){
+      if(ModalRoute.of(context)?.settings.name != ProfileScreen().name){
+        Navigator.pushNamed(context, ProfileScreen().name);
+      }
     }
     final textTheme = Theme.of(context,).textTheme;
     return AppBar(
       backgroundColor: Colors.green,
-      title: Row(
-        spacing: 8,
-        children: [
-          InkWell(
-            onTap: _onTapProfile,
-            child: CircleAvatar(radius: 20,
+      title: GestureDetector(
+        onTap: onTapProfile,
+        child: Row(
+          spacing: 8,
+          children: [
+            CircleAvatar(radius: 20,
               backgroundImage: AssetImage('assets/images/profile_img.png'),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Din Islam',
-                style:textTheme.titleMedium?.copyWith(color: Colors.white),
-              ),
-              Text(
-                'shdinofficial19@gmail.com',
-                style: textTheme.labelSmall?.copyWith(color: Colors.white),
-              ),
-            ],
-          ),
-        ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Din Islam',
+                  style:textTheme.titleMedium?.copyWith(color: Colors.white),
+                ),
+                Text(
+                  'shdinofficial19@gmail.com',
+                  style: textTheme.labelSmall?.copyWith(color: Colors.white),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
 
