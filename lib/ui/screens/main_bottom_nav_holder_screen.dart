@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/ui/screens/add_new_task_screen.dart';
+import 'package:untitled/ui/screens/new_task_list_screen.dart';
 import '../widgets/tm_app_bar.dart';
 
 class MainBottomNavHolderScreen extends StatefulWidget {
@@ -14,19 +14,18 @@ class MainBottomNavHolderScreen extends StatefulWidget {
 
 class _MainBottomNavHolderScreenState extends State<MainBottomNavHolderScreen> {
   int _selectedIndex = 0;
+  List<Widget> _screens = [
+    NewTaskListScreen(),
+    NewTaskListScreen(),
+    NewTaskListScreen(),
+    NewTaskListScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TMAppBar(),
-      floatingActionButton: FloatingActionButton.small(
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        elevation: 0,
-
-        onPressed: _onTapAddIcon,
-        child: Icon(Icons.add, color: Colors.white, size: 24),
-      ),
+      body: _screens[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.green,
         animationDuration: Duration(milliseconds: 700),
@@ -71,9 +70,5 @@ class _MainBottomNavHolderScreenState extends State<MainBottomNavHolderScreen> {
         ],
       ),
     );
-  }
-
-  void _onTapAddIcon(){
-    Navigator.pushNamed(context, AddNewTaskScreen().name);
   }
 }

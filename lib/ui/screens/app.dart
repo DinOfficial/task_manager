@@ -62,6 +62,7 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
           titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
           labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey)
         ),
+        scaffoldBackgroundColor: Colors.grey.shade100
       ),
       initialRoute: FlashScreen().name,
       routes: <String, WidgetBuilder>{
