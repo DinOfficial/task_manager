@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
+import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
 import 'package:untitled/ui/screens/sign_up_screen.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 
@@ -33,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
               TextField(decoration: InputDecoration(hintText: 'Email')),
               TextField(decoration: InputDecoration(hintText: 'Password')),
               FilledButton(
-                onPressed: _onSignUp,
+                onPressed: _onTapSignIn,
                 style: FilledButton.styleFrom(),
                 child: Icon(Icons.arrow_circle_right_outlined, size: 30,),
               ),
@@ -77,5 +78,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _onSignUp() {
     Navigator.pushNamed(context, SignUpScreen().name);
+  }
+
+  void _onTapSignIn() {
+    Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
   }
 }

@@ -1,20 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/ui/screens/reset_password_screen.dart';
+import 'package:untitled/ui/screens/otp_verify_screen.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 
-class OtpVerifyScreen extends StatefulWidget {
-  const OtpVerifyScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
-  final String name = '/otp-verify';
+  final String name = '/reset-password';
 
   @override
-  State<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,36 +27,17 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             children: [
               const SizedBox(height: 100),
               Text(
-                'PIN Verification',
+                'Set Password',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
-                'A 6 digit verification code will sent to your email address',
+                'Minimum password length 8 characters with letter and number combination',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              PinCodeTextField(
-                length: 6,
-                obscureText: false,
-                animationType: AnimationType.fade,
-                keyboardType: TextInputType.number,
-                pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: 50,
-                  fieldWidth: 40,
-                  activeFillColor: Colors.white,
-                  inactiveFillColor: Colors.white,
-                  selectedFillColor: Colors.white,
-                  inactiveColor: Colors.blue
-                ),
-                animationDuration: Duration(milliseconds: 300),
-                enableActiveFill: true,
-                autoDismissKeyboard: true,
-                backgroundColor: Colors.transparent,
-                appContext: context,
-              ),
+              TextField(decoration: InputDecoration(hintText: 'New Password')),
+              TextField(decoration: InputDecoration(hintText: 'Confirm Password')),
               FilledButton(
-                onPressed: _onNavigationResetPassword,
+                onPressed: (){},
                 style: FilledButton.styleFrom(),
                 child: Icon(Icons.arrow_circle_right_outlined, size: 30,),
               ),
@@ -88,7 +68,5 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
     Navigator.pushNamed(context, SignInScreen().name);
   }
 
-  void _onNavigationResetPassword() {
-    Navigator.pushNamed(context, ResetPasswordScreen().name);
-  }
+
 }

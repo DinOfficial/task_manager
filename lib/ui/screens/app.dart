@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/ui/screens/add_new_task_screen.dart';
 import 'package:untitled/ui/screens/flash_screen.dart';
 import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
+import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
 import 'package:untitled/ui/screens/otp_verify_screen.dart';
+import 'package:untitled/ui/screens/profile_screen.dart';
+import 'package:untitled/ui/screens/reset_password_screen.dart';
 import 'package:untitled/ui/screens/sign_up_screen.dart';
 
 import 'log_in_screen.dart';
@@ -45,7 +49,7 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
-            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            padding: EdgeInsets.all(8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -66,6 +70,10 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
         SignInScreen().name: (_) => SignInScreen(),
         ForgotPasswordEmailScreen().name: (_) => ForgotPasswordEmailScreen(),
         OtpVerifyScreen().name: (_) => OtpVerifyScreen(),
+        ResetPasswordScreen().name: (_) => ResetPasswordScreen(),
+        MainBottomNavHolderScreen().name: (_) => MainBottomNavHolderScreen(),
+        AddNewTaskScreen().name : (_) => AddNewTaskScreen(),
+        ProfileScreen().name : (_) => ProfileScreen(),
       },
     );
   }
