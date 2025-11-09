@@ -16,6 +16,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     final textTheme = Theme.of(context,).textTheme;
     return AppBar(
       backgroundColor: Colors.green,
+      automaticallyImplyLeading: false,
       title: GestureDetector(
         onTap: onTapProfile,
         child: Row(
