@@ -28,7 +28,7 @@ class _FlashScreenState extends State<FlashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenBackground(child: Center(child: SvgPicture.asset(AssetPath.logoSVG, width: 120))),
+      body: ScreenBackground(child: Center(child: SvgPicture.asset(AssetPath.logoSVG, width: 240, height: 200, fit: BoxFit.contain,))),
     );
   }
 }
