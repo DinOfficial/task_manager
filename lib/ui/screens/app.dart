@@ -44,7 +44,7 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: Colors.red, width: 1),
           ),
         ),
         filledButtonTheme: FilledButtonThemeData(

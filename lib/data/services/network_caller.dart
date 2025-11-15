@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class NetWorkCaller {
+
+  // get request network caller
   Future<NetworkResponse> getRequest(String url) async {
     try {
       Uri uri = Uri.parse(url);
@@ -31,9 +33,8 @@ class NetWorkCaller {
       );
     }
   }
-
-  Future<NetworkResponse> postRequest(String url,
-      Map<String, dynamic>? body) async {
+  // post request network caller
+  Future<NetworkResponse> postRequest( String url,{Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url);
@@ -42,12 +43,12 @@ class NetWorkCaller {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: body,
+        body: jsonEncode(body),
       );
       _logResponse(url, response);
-      final decodedResponse = jsonEncode(response.body);
+      final Map<String, dynamic> decodedResponse = jsonDecode(response.body);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && decodedResponse['status'] == 'success') {
         return NetworkResponse(
           isSuccess: true,
           responseCode: response.statusCode,
@@ -57,9 +58,11 @@ class NetWorkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
+          errorMessage: decodedResponse['data'],
         );
       }
     } catch (e) {
+      debugPrint(e.toString());
       return NetworkResponse(
         isSuccess: false,
         responseCode: -1,
