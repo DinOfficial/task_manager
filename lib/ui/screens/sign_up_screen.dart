@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/data/services/network_caller.dart';
@@ -116,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (value?.isEmpty ?? true) {
                       return " Password is required";
                     }
-                    if (value!.length <= 6) {
+                    if (value!.length <= 5) {
                       return "Password must more than 6 characters";
                     }
                     return null;

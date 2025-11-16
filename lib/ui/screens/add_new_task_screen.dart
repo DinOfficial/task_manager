@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/data/services/network_caller.dart';
+import 'package:untitled/data/utils/auth_controller.dart';
+import 'package:untitled/data/utils/urls.dart';
+import 'package:untitled/data/utils/validation.dart';
+import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
+import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 import 'package:untitled/ui/widgets/tm_app_bar.dart';
+
+import '../widgets/show_snackbar_message.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
   const AddNewTaskScreen({super.key});
@@ -12,6 +20,15 @@ class AddNewTaskScreen extends StatefulWidget {
 }
 
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
+  bool _isloading = false;
+
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final TextEditingController _titleTEController = TextEditingController();
+  final TextEditingController _descriptionTEController = TextEditingController();
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,21 +40,38 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             const SizedBox(height: 50),
             Text('Add New Task', style: Theme.of(context).textTheme.titleLarge),
             Form(
+              key: _formkey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 spacing: 16,
                 children: [
                   const SizedBox(height: 8),
                   TextFormField(
-                    decoration: const InputDecoration(hintText: 'Subject'),
-                  ),
+                    controller: _titleTEController,
+                    decoration: const InputDecoration(
+                        hintText: 'Title',
+                    ),
+                    validator: (value) =>AllValidation().formValidation(value, 'Enter task title'),
+
+
+            ),
                   TextFormField(
                     maxLines: 5,
+                    controller: _descriptionTEController,
                     decoration: const InputDecoration(
                         hintText: 'Description',
                     ),
+                    validator: (value) =>AllValidation().formValidation(value, 'Enter task description'),
                   ),
                   const SizedBox(height: 8),
-                  FilledButton(onPressed: (){}, child: Icon(Icons.arrow_circle_right_outlined, size: 30,))
+                  Visibility(
+                    visible: !_isloading,
+                    replacement: CenteredCircularProgressIndicator(),
+                    child: FilledButton(
+                      onPressed: _onNextScreen,
+                      child: Icon(Icons.arrow_circle_right_outlined, size: 30),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -46,4 +80,40 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       ),
     );
   }
+
+
+  void _onNextScreen(){
+    if (!_formkey.currentState!.validate()) {
+      return;
+    }
+    _addTask();
+  }
+  Future<NetworkResponse?> _addTask() async{
+    _isloading = true;
+    setState(() {});
+
+    Map<String, dynamic> responseBody ={
+      "title":_titleTEController.text,
+      "description": _descriptionTEController.text,
+      "status":"New"
+    };
+
+    NetworkResponse response = await NetWorkCaller().postRequest(
+      Urls.createTask,
+      body: responseBody,
+    );
+
+    _isloading = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      _titleTEController.clear();
+      _descriptionTEController.clear();
+      showSnackbarMessage(context, 'New task created successfully');
+      Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
+    } else {
+      showSnackbarMessage(context, response.errorMessage.toString(), true);
+    }
+  }
+
 }

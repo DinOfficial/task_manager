@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/data/services/network_caller.dart';
+import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/data/utils/urls.dart';
 import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
 import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
@@ -136,7 +137,6 @@ class _SignInScreenState extends State<SignInScreen> {
       return;
     }
     _onTapSignIn();
-    Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
   }
 
   void _onTapSignIn() async {
@@ -157,9 +157,11 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {});
 
     if (response.isSuccess) {
+      AuthController.saveUserToken(response.body['token']);
       _emailTEController.clear();
       _passwordTEController.clear();
       showSnackbarMessage(context, 'You are successfully login');
+      Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
     } else {
       showSnackbarMessage(context, response.errorMessage.toString(), true);
     }

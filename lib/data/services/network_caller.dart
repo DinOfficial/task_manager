@@ -1,15 +1,23 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled/data/utils/auth_controller.dart';
 
 class NetWorkCaller {
+
 
   // get request network caller
   Future<NetworkResponse> getRequest(String url) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url);
-      final response = await http.get(uri);
+
+      final String? userToken = await AuthController.getUserToken();
+      final Map<String, String> headers ={
+        'Content-Type': 'application/json',
+        'token': userToken ?? '',
+      };
+      final response = await http.get(uri, headers: headers);
       _logResponse(url, response);
       final decodedResponse = jsonDecode(response.body);
 
@@ -33,16 +41,21 @@ class NetWorkCaller {
       );
     }
   }
+
+
   // post request network caller
   Future<NetworkResponse> postRequest( String url,{Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url);
+      final String? userToken = await AuthController.getUserToken();
+      final Map<String, String> headers ={
+        'Content-Type': 'application/json',
+        'token': userToken ?? '',
+      };
       final response = await http.post(
         uri,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
         body: jsonEncode(body),
       );
       _logResponse(url, response);

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
+import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
 import 'package:untitled/ui/utils/asset_path.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 
@@ -21,14 +23,28 @@ class _FlashScreenState extends State<FlashScreen> {
   }
 
   Future<void> _navigateToNextPage() async {
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+    await AuthController.getUserToken();
+    if (AuthController.isLoggedIn()) {
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
+    } else {
+      Navigator.pushReplacementNamed(context, SignInScreen().name);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenBackground(child: Center(child: SvgPicture.asset(AssetPath.logoSVG, width: 240, height: 200, fit: BoxFit.contain,))),
+      body: ScreenBackground(
+        child: Center(
+          child: SvgPicture.asset(
+            AssetPath.logoSVG,
+            width: 240,
+            height: 200,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
     );
   }
 }
