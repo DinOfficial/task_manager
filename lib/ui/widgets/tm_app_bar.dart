@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
 import 'package:untitled/ui/screens/profile_screen.dart';
-
-class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
+class TMAppBar extends StatefulWidget implements PreferredSizeWidget {
   const TMAppBar({super.key});
+
+  @override
+  State<TMAppBar> createState() => _TMAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+class _TMAppBarState extends State<TMAppBar> {
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,6 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
         Navigator.pushNamed(context, ProfileScreen().name);
       }
     }
-
     final textTheme = Theme.of(context).textTheme;
     return AppBar(
       backgroundColor: Colors.green,
@@ -21,12 +27,12 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: GestureDetector(
         onTap: onTapProfile,
         child: Row(
-          spacing: 8,
           children: [
             CircleAvatar(
               radius: 20,
               backgroundImage: AssetImage('assets/images/profile_img.png'),
             ),
+            SizedBox(width: 10,),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,8 +61,4 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

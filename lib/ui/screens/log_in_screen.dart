@@ -158,15 +158,17 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (response.isSuccess) {
       AuthController.saveUserToken(response.body['token']);
-      _emailTEController.clear();
-      _passwordTEController.clear();
+      clearInputField();
       showSnackbarMessage(context, 'You are successfully login');
       Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
     } else {
       showSnackbarMessage(context, response.errorMessage.toString(), true);
     }
   }
-
+  void clearInputField(){
+    _emailTEController.clear();
+    _passwordTEController.clear();
+  }
   @override
   void dispose() {
     _emailTEController.dispose();

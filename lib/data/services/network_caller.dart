@@ -13,11 +13,11 @@ class NetWorkCaller {
       _logRequest(url);
 
       final String? userToken = await AuthController.getUserToken();
-      final Map<String, String> headers ={
-        'Content-Type': 'application/json',
-        'token': userToken ?? '',
-      };
-      final response = await http.get(uri, headers: headers);
+      // final Map<String, String> headers ={
+      //   'Content-Type': 'application/json',
+      //   'token': userToken ?? '',
+      // };
+      final response = await http.get(uri);
       _logResponse(url, response);
       final decodedResponse = jsonDecode(response.body);
 
