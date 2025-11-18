@@ -12,11 +12,6 @@ class NetWorkCaller {
       Uri uri = Uri.parse(url);
       _logRequest(url);
 
-      final String? userToken = await AuthController.getUserToken();
-      // final Map<String, String> headers ={
-      //   'Content-Type': 'application/json',
-      //   'token': userToken ?? '',
-      // };
       final response = await http.get(uri);
       _logResponse(url, response);
       final decodedResponse = jsonDecode(response.body);
@@ -48,14 +43,12 @@ class NetWorkCaller {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url);
-      final String? userToken = await AuthController.getUserToken();
-      final Map<String, String> headers ={
-        'Content-Type': 'application/json',
-        'token': userToken ?? '',
-      };
       final response = await http.post(
         uri,
-        headers: headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'token' : ?AuthController.accessToken,
+        },
         body: jsonEncode(body),
       );
       _logResponse(url, response);

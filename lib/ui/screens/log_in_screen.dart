@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/data/models/user_model.dart';
 import 'package:untitled/data/services/network_caller.dart';
 import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/data/utils/urls.dart';
@@ -157,7 +158,9 @@ class _SignInScreenState extends State<SignInScreen> {
     setState(() {});
 
     if (response.isSuccess) {
-      AuthController.saveUserToken(response.body['token']);
+      UserModel userModel = await UserModel.fromJson(response.body['data']);
+      String accessToken = response.body['token'];
+      await AuthController.saveUserToken(accessToken, userModel);
       clearInputField();
       showSnackbarMessage(context, 'You are successfully login');
       Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
