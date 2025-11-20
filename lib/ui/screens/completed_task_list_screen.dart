@@ -25,7 +25,7 @@ class _CompletedTaskListScreenState extends State<CompletedTaskListScreen> {
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return TaskCard();
+                // return TaskCard();
               },
             ),
           ),

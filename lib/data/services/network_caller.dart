@@ -12,7 +12,9 @@ class NetWorkCaller {
       Uri uri = Uri.parse(url);
       _logRequest(url);
 
-      final response = await http.get(uri);
+      final response = await http.get(uri,headers: {
+        'token' : AuthController.accessToken ?? '',
+      },);
       _logResponse(url, response);
       final decodedResponse = jsonDecode(response.body);
 
@@ -20,6 +22,7 @@ class NetWorkCaller {
         return NetworkResponse(
           isSuccess: true,
           responseCode: response.statusCode,
+          body: decodedResponse
         );
       } else {
         return NetworkResponse(
@@ -47,7 +50,7 @@ class NetWorkCaller {
         uri,
         headers: {
           'Content-Type': 'application/json',
-          'token' : ?AuthController.accessToken,
+          'token' : AuthController.accessToken ?? '',
         },
         body: jsonEncode(body),
       );
