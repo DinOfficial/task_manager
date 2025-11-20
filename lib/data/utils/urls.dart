@@ -5,6 +5,9 @@ class Urls{
   static String createTask = '$_baseUrl/createTask';
   static String profileDetails = '$_baseUrl/ProfileDetails';
   static String newTaskList = '$_baseUrl/listTaskByStatus/New';
-
+  static String progressTaskList = '$_baseUrl/listTaskByStatus/Progress';
+  static String cancelledTaskList = '$_baseUrl/listTaskByStatus/Cancelled';
+  static String completedTaskList = '$_baseUrl/listTaskByStatus/Completed';
+  static String taskCountList = '$_baseUrl/taskStatusCount';
 
 }

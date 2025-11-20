@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/data/models/task_count_list_model.dart';
 import 'package:untitled/data/models/task_list_model.dart';
 import 'package:untitled/data/services/network_caller.dart';
 import 'package:untitled/data/utils/urls.dart';
@@ -17,7 +18,98 @@ class NewTaskListScreen extends StatefulWidget {
 
 class _NewTaskListScreenState extends State<NewTaskListScreen> {
   bool _getTaskListInProgress = false;
+  bool _getTaskCountListInProgress = false;
   List<TaskListModel> _taskList = [];
+  List<TaskCountListModel> _taskCountList = [];
+
+
+
+
+@override
+  void initState() {
+    super.initState();
+    _getTaskList();
+    _getTaskCountList();
+}
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.wait([
+            _getTaskList(),
+            _getTaskCountList(),
+          ]);
+        },
+        child: ListView(
+          children: [
+            Visibility(
+              visible: !_getTaskCountListInProgress,
+              replacement: CenteredCircularProgressIndicator(),
+              child: SizedBox(
+                height: 90,
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _taskCountList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      width: 100,
+                      child: ListTile(
+                        title: Text(
+                          _taskCountList[index].sum.toString(),
+                          style: textTheme.titleLarge?.copyWith(
+                            color: Colors.black87,
+                          ),
+                        ),
+                        subtitle: Text(
+                          _taskCountList[index].id.toString(),
+                          style: textTheme.labelLarge?.copyWith(color: Colors.grey),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Visibility(
+                visible: !_getTaskListInProgress,
+                replacement: CenteredCircularProgressIndicator(),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  itemCount: _taskList.length,
+                  itemBuilder: (context, index) {
+                    return TaskCard(taskListModel: _taskList[index],);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        backgroundColor: Colors.green,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        elevation: 0,
+        onPressed: _onTapAddIcon,
+        child: Icon(Icons.add, color: Colors.white, size: 24),
+      ),
+    );
+  }
+
+  void _onTapAddIcon() {
+    Navigator.pushNamed(context, AddNewTaskScreen().name);
+  }
 
 
   Future<void> _getTaskList() async {
@@ -42,77 +134,25 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
     setState(() {});
   }
 
+  Future<void> _getTaskCountList() async {
+    _getTaskListInProgress = true;
+    setState(() {});
 
-@override
-  void initState() {
-    super.initState();
-    _getTaskList();
-  }
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 90,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  width: 100,
-                  child: ListTile(
-                    title: Text(
-                      '12',
-                      style: textTheme.titleLarge?.copyWith(
-                        color: Colors.black87,
-                      ),
-                    ),
-                    subtitle: Text(
-                      'Canceled',
-                      style: textTheme.labelLarge?.copyWith(color: Colors.grey),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: Visibility(
-              visible: !_getTaskListInProgress,
-              replacement: CenteredCircularProgressIndicator(),
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                itemCount: _taskList.length,
-                itemBuilder: (context, index) {
-                  return TaskCard(taskListModel: _taskList[index],);
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.small(
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        elevation: 0,
-        onPressed: _onTapAddIcon,
-        child: Icon(Icons.add, color: Colors.white, size: 24),
-      ),
+    final NetworkResponse response = await NetWorkCaller().getRequest(
+      Urls.taskCountList,
     );
-  }
 
-  void _onTapAddIcon() {
-    Navigator.pushNamed(context, AddNewTaskScreen().name);
+    if (response.isSuccess) {
+      List<TaskCountListModel> list = [];
+      for (Map<String, dynamic> jsonData in response.body['data']) {
+        list.add(TaskCountListModel.fromJson(jsonData));
+      }
+      _taskCountList = list;
+    } else {
+      showSnackbarMessage(context, response.errorMessage.toString());
+    }
+
+    _getTaskListInProgress = false;
+    setState(() {});
   }
 }
