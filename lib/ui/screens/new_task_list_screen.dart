@@ -64,7 +64,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                       child: ListTile(
                         title: Text(
                           _taskCountList[index].sum.toString(),
-                          style: textTheme.titleLarge?.copyWith(
+                          style: textTheme.titleMedium?.copyWith(
                             color: Colors.black87,
                           ),
                         ),

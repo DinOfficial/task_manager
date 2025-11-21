@@ -15,13 +15,24 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   XFile? _imageFile;
+
   Future<void> _pickImage() async {
-    final XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
     if (pickedFile != null) {
       setState(() {
         _imageFile = pickedFile;
       });
     }
+  }
+
+  bool _isShowPassword = false;
+
+  void _onTapPasswordShow() {
+    setState(() {
+      _isShowPassword =! _isShowPassword;
+    });
   }
 
   @override
@@ -55,11 +66,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           bottomLeft: Radius.circular(8),
                         ),
                       ),
-                      child: const Text('Photos', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                      child: const Text(
+                        'Photos',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -73,15 +93,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
               TextField(decoration: InputDecoration(hintText: 'Email')),
               TextField(decoration: InputDecoration(hintText: 'First Name')),
               TextField(decoration: InputDecoration(hintText: 'Last Name')),
-              TextField(decoration: InputDecoration(hintText: 'Mobile')),
-              TextField(decoration: InputDecoration(hintText: 'Password')),
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(hintText: 'Mobile'),
+              ),
+              TextField(
+                obscureText: !_isShowPassword ,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  suffixIcon: IconButton(
+                    onPressed: _onTapPasswordShow,
+                    icon: Icon(
+                      _isShowPassword ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  ),
+                ),
+              ),
               FilledButton(
                 onPressed: () {},
                 style: FilledButton.styleFrom(),
