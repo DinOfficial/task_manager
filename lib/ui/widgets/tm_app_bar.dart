@@ -20,6 +20,9 @@ class _TMAppBarState extends State<TMAppBar> {
         Navigator.pushNamed(context, ProfileScreen().name);
       }
     }
+    final user = AuthController.user;
+
+    // final profilePicture = AuthController.user.
     final textTheme = Theme.of(context).textTheme;
     return AppBar(
       backgroundColor: Colors.green,
@@ -37,11 +40,11 @@ class _TMAppBarState extends State<TMAppBar> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Din Islam',
+                  '${user?.firsName } ${user?.lastName}',
                   style: textTheme.titleMedium?.copyWith(color: Colors.white),
                 ),
                 Text(
-                  'shdinofficial19@gmail.com',
+                  '${user?.email}',
                   style: textTheme.labelSmall?.copyWith(color: Colors.white),
                 ),
               ],
@@ -52,12 +55,8 @@ class _TMAppBarState extends State<TMAppBar> {
       actions: [
         IconButton(
           onPressed: () {
-            if(AuthController.accessToken == null){
-              Navigator.pushReplacementNamed(context, SignInScreen().name);
-              AuthController.clearUserData();
-            }else{
-              AuthController.accessToken == null;
-            }
+            AuthController.clearUserData();
+            Navigator.pushReplacementNamed(context, SignInScreen().name);
           },
           icon: Icon(Icons.logout, color: Colors.white),
         ),

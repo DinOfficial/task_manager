@@ -18,6 +18,16 @@ class AuthController {
     user = UserModel.fromJson(jsonDecode(sharedPreferences.getString(_userKey)!)) ;
   }
 
+  static Future<void> loadUserData()async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   accessToken=  sharedPreferences.getString(_tokenKey);
+   String? userJson =  sharedPreferences.getString(_userKey);
+   if(userJson != null){
+     user = UserModel.fromJson(jsonDecode(userJson));
+   }
+
+  }
+
   static Future<void> getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString(_tokenKey);
