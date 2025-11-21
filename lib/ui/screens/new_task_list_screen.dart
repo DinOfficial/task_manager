@@ -70,7 +70,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                         ),
                         subtitle: Text(
                           _taskCountList[index].id.toString(),
-                          style: textTheme.labelLarge?.copyWith(color: Colors.grey),
+                          style: textTheme.labelSmall?.copyWith(color: Colors.grey),
                         ),
                       ),
                     );
@@ -81,7 +81,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
             Expanded(
               child: Visibility(
                 visible: !_getTaskListInProgress,
-                replacement: CenteredCircularProgressIndicator(),
+                replacement: SizedBox(height:300,child: CenteredCircularProgressIndicator()),
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,

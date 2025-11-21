@@ -6,6 +6,7 @@ import 'package:untitled/data/models/user_model.dart';
 class AuthController {
   static final String _tokenKey = "token";
   static final String _userKey = "user";
+
   static String? accessToken;
   static UserModel? user;
 
@@ -13,6 +14,8 @@ class AuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(_tokenKey, token);
     await sharedPreferences.setString(_userKey, jsonEncode(userModel.toJson()));
+    accessToken = token;
+    user = UserModel.fromJson(jsonDecode(sharedPreferences.getString(_userKey)!)) ;
   }
 
   static Future<void> getUserData() async {
@@ -33,5 +36,7 @@ class AuthController {
   static Future<void> clearUserData() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
+    accessToken == null;
+    user == null;
   }
 }

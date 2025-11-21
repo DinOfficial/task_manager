@@ -11,30 +11,44 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Color _getCardColor(){
+      if(taskListModel.status == 'New'){
+        return Colors.blue;
+      } else if(taskListModel.status == 'Progress'){
+        return Colors.amber;
+      }else if(taskListModel.status == 'Cancelled'){
+        return Colors.red;
+      }else{
+        return Colors.green;
+      }
+    }
     return Card(
       color: Colors.white,
       elevation: 0,
       child: ListTile(
         title: Text(taskListModel.title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
         subtitle: Column(
-          spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(height: 4,),
             Text(taskListModel.description),
+            const SizedBox(height: 4,),
             Text('Date:${taskListModel.createdDate}'),
+            const SizedBox(height: 4,),
             Row(
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: _getCardColor(),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(taskListModel.status, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
                 ),
                 Spacer(),
-                IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.grey, size: 20)),
+                IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.blue, size: 20)),
                 IconButton(onPressed: (){}, icon: Icon(Icons.delete, color: Colors.red,size: 20))
               ],
             )

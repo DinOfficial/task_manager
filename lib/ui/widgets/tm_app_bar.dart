@@ -52,8 +52,12 @@ class _TMAppBarState extends State<TMAppBar> {
       actions: [
         IconButton(
           onPressed: () {
-            AuthController.clearUserData();
-            Navigator.pushReplacementNamed(context, SignInScreen().name);
+            if(AuthController.accessToken == null){
+              Navigator.pushReplacementNamed(context, SignInScreen().name);
+              AuthController.clearUserData();
+            }else{
+              AuthController.accessToken == null;
+            }
           },
           icon: Icon(Icons.logout, color: Colors.white),
         ),

@@ -28,7 +28,7 @@ class _MainBottomNavHolderScreenState extends State<MainBottomNavHolderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TMAppBar(),
-      body: _screens[_selectedIndex],
+      body:_screens[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.green,
         animationDuration: Duration(milliseconds: 700),
