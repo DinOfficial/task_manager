@@ -12,7 +12,7 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Color getCardColor(){
+    Color statusTagColor(){
       if(taskListModel.status == 'New'){
         return Colors.blue;
       } else if(taskListModel.status == 'Progress'){
@@ -42,7 +42,7 @@ class TaskCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
-                    color: getCardColor(),
+                    color: statusTagColor(),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(taskListModel.status, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
