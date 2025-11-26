@@ -43,7 +43,9 @@ class _CancelTaskListScreenState extends State<CancelTaskListScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   itemCount: _cancelledTaskList.length,
                   itemBuilder: (context, index) {
-                    return TaskCard( taskListModel: _cancelledTaskList[index],);
+                    return TaskCard( taskListModel: _cancelledTaskList[index], refreshList: () {
+                      _getCancelledTaskList();
+                    },);
                   },
                 ),
               ),

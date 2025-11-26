@@ -18,9 +18,11 @@ class TaskManagerApp extends StatefulWidget {
 }
 
 class _TaskManagerAppState extends State<TaskManagerApp> {
+  static final GlobalKey<NavigatorState> _navigatorKay = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigatorKay,
       debugShowCheckedModeBanner: false,
       title: 'Task Manager',
       theme: ThemeData(

@@ -1,4 +1,4 @@
-class Urls{
+class Urls {
   static const String _baseUrl = 'http://35.73.30.144:2005/api/v1';
   static String registration = '$_baseUrl/Registration';
   static String signIn = '$_baseUrl/Login';
@@ -10,4 +10,6 @@ class Urls{
   static String completedTaskList = '$_baseUrl/listTaskByStatus/Completed';
   static String taskCountList = '$_baseUrl/taskStatusCount';
 
+  static String updateTaskStatus(String statusId, String status) =>
+      '$_baseUrl/updateTaskStatus/$statusId/$status';
 }

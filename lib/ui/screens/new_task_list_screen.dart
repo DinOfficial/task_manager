@@ -89,7 +89,10 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   itemCount: _taskList.length,
                   itemBuilder: (context, index) {
-                    return TaskCard(taskListModel: _taskList[index],);
+                    return TaskCard(taskListModel: _taskList[index], refreshList: () {
+                      _getTaskList();
+                      _getTaskCountList();
+                    },);
                   },
                 ),
               ),

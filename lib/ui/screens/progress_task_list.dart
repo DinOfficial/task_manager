@@ -41,7 +41,9 @@ class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   itemCount: _inProgressList.length,
                   itemBuilder: (context, index) {
-                    return TaskCard(taskListModel: _inProgressList[index]);
+                    return TaskCard(taskListModel: _inProgressList[index], refreshList: () {
+                      _getProgressTaskList();
+                    },);
                   },
                 ),
               ),

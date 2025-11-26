@@ -43,7 +43,9 @@ class _CompletedTaskListScreenState extends State<CompletedTaskListScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   itemCount: _completeTaskList.length,
                   itemBuilder: (context, index) {
-                    return TaskCard(taskListModel: _completeTaskList[index]);
+                    return TaskCard(taskListModel: _completeTaskList[index], refreshList: () {
+                      _getCompletedTaskData();
+                    },);
                   },
                 ),
               ),

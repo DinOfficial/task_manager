@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled/data/utils/auth_controller.dart';
+import 'package:untitled/ui/screens/log_in_screen.dart';
+import 'package:untitled/ui/screens/app.dart' as TaskManagerApp;
 
 class NetWorkCaller {
 
@@ -23,6 +26,13 @@ class NetWorkCaller {
           isSuccess: true,
           responseCode: response.statusCode,
           body: decodedResponse
+        );
+      }else if(response.statusCode == 401){
+        AuthController.clearUserData();
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: 'UnAuthorize',
         );
       } else {
         return NetworkResponse(
@@ -63,7 +73,15 @@ class NetWorkCaller {
           responseCode: response.statusCode,
           body: decodedResponse,
         );
-      } else {
+      } else if(response.statusCode == 401) {
+        AuthController.clearUserData();
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: 'UnAuthorize',
+        );
+      }
+      else {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
