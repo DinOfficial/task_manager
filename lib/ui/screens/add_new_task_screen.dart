@@ -110,7 +110,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       _titleTEController.clear();
       _descriptionTEController.clear();
       showSnackbarMessage(context, 'New task created successfully');
-      Navigator.pushReplacementNamed(context, MainBottomNavHolderScreen().name);
+      Navigator.pushNamedAndRemoveUntil(context, MainBottomNavHolderScreen().name, (p)=>false);
     } else {
       showSnackbarMessage(context, response.errorMessage.toString(), true);
     }

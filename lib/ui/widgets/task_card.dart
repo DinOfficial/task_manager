@@ -5,7 +5,11 @@ import 'package:untitled/data/utils/urls.dart';
 import 'package:untitled/ui/widgets/show_snackbar_message.dart';
 
 class TaskCard extends StatefulWidget {
-  const TaskCard({super.key, required this.taskListModel, required this.refreshList});
+  const TaskCard({
+    super.key,
+    required this.taskListModel,
+    required this.refreshList,
+  });
 
   final TaskListModel taskListModel;
   final VoidCallback refreshList;
@@ -16,6 +20,7 @@ class TaskCard extends StatefulWidget {
 
 class _TaskCardState extends State<TaskCard> {
   bool _taskStatusChangeInProgress = false;
+  bool _taskDeleteInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class _TaskCardState extends State<TaskCard> {
             );
 
             if (response.isSuccess) {
-             widget.refreshList();
+              widget.refreshList();
             } else {
               _taskStatusChangeInProgress = false;
               setState(() {});
@@ -56,18 +61,22 @@ class _TaskCardState extends State<TaskCard> {
             }
           }
 
-          void _onTapTaskChangeHandle(String status){
+          void _onTapTaskChangeHandle(String status) {
             if (isCurrentStatus(status)) return;
             Navigator.pop(context);
             changeTaskStatusFetch(status);
           }
 
           return AlertDialog(
+            backgroundColor: Colors.green.shade200,
             title: Text('Change Status'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
+                  selected: isCurrentStatus('New') ? true : false,
+                  selectedColor: Colors.black87,
+                  selectedTileColor: Colors.white60,
                   title: Text('New'),
                   trailing: isCurrentStatus('New') ? Icon(Icons.done) : null,
                   onTap: () {
@@ -75,25 +84,112 @@ class _TaskCardState extends State<TaskCard> {
                   },
                 ),
                 ListTile(
+                  selected: isCurrentStatus('Progress') ? true : false,
+                  selectedColor: Colors.black87,
+                  selectedTileColor: Colors.white60,
                   title: Text('Progress'),
-                  trailing: isCurrentStatus('Progress') ? Icon(Icons.done) : null,
+                  trailing: isCurrentStatus('Progress')
+                      ? Icon(Icons.done)
+                      : null,
                   onTap: () {
                     _onTapTaskChangeHandle('Progress');
                   },
                 ),
                 ListTile(
+                  selected: isCurrentStatus('Cancelled') ? true : false,
+                  selectedColor: Colors.black87,
+                  selectedTileColor: Colors.white60,
                   title: Text('Cancelled'),
-                  trailing: isCurrentStatus('Cancelled') ? Icon(Icons.done) : null,
+                  trailing: isCurrentStatus('Cancelled')
+                      ? Icon(Icons.done)
+                      : null,
                   onTap: () {
                     _onTapTaskChangeHandle('Cancelled');
                   },
                 ),
                 ListTile(
+                  selected: isCurrentStatus('Completed') ? true : false,
+                  selectedColor: Colors.black87,
+                  selectedTileColor: Colors.white60,
                   title: Text('Completed'),
-                  trailing: isCurrentStatus('Completed') ? Icon(Icons.done) : null,
+                  trailing: isCurrentStatus('Completed')
+                      ? Icon(Icons.done)
+                      : null,
                   onTap: () {
                     _onTapTaskChangeHandle('Completed');
                   },
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+    void deleteTaskDialog() {
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          Future<void> deleteTask(String taskId) async {
+            _taskDeleteInProgress = true;
+            setState(() {});
+
+            NetworkResponse response = await NetWorkCaller().getRequest(
+              Urls.deleteTask(taskId),
+            );
+
+            _taskDeleteInProgress = false;
+            setState(() {});
+
+            if (response.isSuccess) {
+              showSnackbarMessage(context, 'Task Delete Successfully');
+              widget.refreshList();
+            } else {
+              showSnackbarMessage(
+                context,
+                response.errorMessage.toString(),
+                true,
+              );
+            }
+          }
+
+          return AlertDialog(
+            backgroundColor: Colors.green.shade200,
+            title: Text(
+              'Do you want to delete this task ?',
+              style: TextStyle(fontSize: 18, color: Colors.black87),
+            ),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    deleteTask(widget.taskListModel.id);
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Okay',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -129,7 +225,10 @@ class _TaskCardState extends State<TaskCard> {
                   ),
                   child: Text(
                     widget.taskListModel.status,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -143,9 +242,15 @@ class _TaskCardState extends State<TaskCard> {
                     icon: Icon(Icons.edit, color: Colors.blue, size: 20),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.delete, color: Colors.red, size: 20),
+                Visibility(
+                  visible: !_taskDeleteInProgress,
+                  replacement: CircularProgressIndicator(),
+                  child: IconButton(
+                    onPressed: () {
+                      deleteTaskDialog();
+                    },
+                    icon: Icon(Icons.delete, color: Colors.red, size: 20),
+                  ),
                 ),
               ],
             ),

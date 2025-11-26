@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/ui/screens/app.dart' as TaskManagerApp;
+import 'package:untitled/ui/screens/app.dart';
 
 class NetWorkCaller {
 
@@ -28,6 +29,7 @@ class NetWorkCaller {
           body: decodedResponse
         );
       }else if(response.statusCode == 401){
+        Navigator.pushNamed(TaskManagerApp.navigatorKay.currentContext!, SignInScreen().name);
         AuthController.clearUserData();
         return NetworkResponse(
           isSuccess: false,

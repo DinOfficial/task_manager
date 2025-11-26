@@ -10,19 +10,14 @@ import 'package:untitled/ui/screens/sign_up_screen.dart';
 
 import 'log_in_screen.dart';
 
-class TaskManagerApp extends StatefulWidget {
+class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
+  static final GlobalKey<NavigatorState> navigatorKay = GlobalKey<NavigatorState>();
 
-  @override
-  State<TaskManagerApp> createState() => _TaskManagerAppState();
-}
-
-class _TaskManagerAppState extends State<TaskManagerApp> {
-  static final GlobalKey<NavigatorState> _navigatorKay = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: _navigatorKay,
+      navigatorKey: navigatorKay,
       debugShowCheckedModeBanner: false,
       title: 'Task Manager',
       theme: ThemeData(
