@@ -9,6 +9,7 @@ import 'add_new_task_screen.dart';
 
 class CompletedTaskListScreen extends StatefulWidget {
   const CompletedTaskListScreen({super.key});
+  final String name = 'completed-task-list';
 
   @override
   State<CompletedTaskListScreen> createState() => _CompletedTaskListScreenState();

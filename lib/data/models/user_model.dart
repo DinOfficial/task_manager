@@ -4,13 +4,16 @@ class UserModel {
   final String firsName;
   final String lastName;
   final String mobile;
+  final String photo;
+
 
   UserModel({
     required this.id,
     required this.email,
     required this.firsName,
     required this.lastName,
-    required this.mobile
+    required this.mobile,
+    required this.photo,
   });
 
 
@@ -20,7 +23,8 @@ class UserModel {
         email: jsonData['email'],
         firsName: jsonData['firstName'],
         lastName: jsonData['lastName'],
-        mobile: jsonData['mobile']
+        mobile: jsonData['mobile'],
+        photo: jsonData['photo'] ?? '',
     );
   }
 
@@ -31,6 +35,7 @@ class UserModel {
       "firstName": firsName,
       "lastName": lastName,
       "mobile": mobile,
+      "photo": photo,
     };
   }
 }

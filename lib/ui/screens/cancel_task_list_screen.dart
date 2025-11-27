@@ -9,6 +9,7 @@ import 'add_new_task_screen.dart';
 
 class CancelTaskListScreen extends StatefulWidget {
   const CancelTaskListScreen({super.key});
+  final String name = 'cancelled-task-list';
 
   @override
   State<CancelTaskListScreen> createState() => _CancelTaskListScreenState();

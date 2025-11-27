@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
 import 'package:untitled/ui/screens/profile_screen.dart';
+
 class TMAppBar extends StatefulWidget implements PreferredSizeWidget {
   const TMAppBar({super.key});
 
@@ -11,8 +14,8 @@ class TMAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-class _TMAppBarState extends State<TMAppBar> {
 
+class _TMAppBarState extends State<TMAppBar> {
   @override
   Widget build(BuildContext context) {
     void onTapProfile() {
@@ -20,6 +23,7 @@ class _TMAppBarState extends State<TMAppBar> {
         Navigator.pushNamed(context, ProfileScreen().name);
       }
     }
+
     final user = AuthController.user;
 
     // final profilePicture = AuthController.user.
@@ -30,17 +34,19 @@ class _TMAppBarState extends State<TMAppBar> {
         onTap: onTapProfile,
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage('assets/images/profile_img.png'),
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              child: AuthController.user!.photo.isEmpty
+                  ? Icon(Icons.person)
+                  : Image.memory(base64Decode(AuthController.user!.photo,), width: 40, height: 40, fit: BoxFit.cover,),
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: 10),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${user?.firsName } ${user?.lastName}',
+                  '${user?.firsName} ${user?.lastName}',
                   style: textTheme.titleMedium?.copyWith(color: Colors.white),
                 ),
                 Text(

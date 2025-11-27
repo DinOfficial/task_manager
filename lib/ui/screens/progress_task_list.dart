@@ -9,6 +9,7 @@ import 'add_new_task_screen.dart';
 
 class ProgressTaskListScreen extends StatefulWidget {
   const ProgressTaskListScreen({super.key});
+  final String name = 'progress-task-list';
 
   @override
   State<ProgressTaskListScreen> createState() => _ProgressTaskListScreenState();

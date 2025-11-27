@@ -3,6 +3,9 @@ import 'package:untitled/data/models/task_count_list_model.dart';
 import 'package:untitled/data/models/task_list_model.dart';
 import 'package:untitled/data/services/network_caller.dart';
 import 'package:untitled/data/utils/urls.dart';
+import 'package:untitled/ui/screens/cancel_task_list_screen.dart';
+import 'package:untitled/ui/screens/completed_task_list_screen.dart';
+import 'package:untitled/ui/screens/progress_task_list.dart';
 import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:untitled/ui/widgets/show_snackbar_message.dart';
 
@@ -22,6 +25,16 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
   List<TaskListModel> _taskList = [];
   List<TaskCountListModel> _taskCountList = [];
 
+  // _taskCountOnTap(int index){
+  //   if(_taskCountList[index].id.toString() == 'Progress'){
+  //     return Navigator.pushNamedAndRemoveUntil(context, ProgressTaskListScreen().name, (predicate)=>false);
+  //   }else if(_taskCountList[index].id.toString() == 'Cancelled'){
+  //     return Navigator.pushNamedAndRemoveUntil(context, CancelTaskListScreen().name, (predicate)=>false);
+  //   }else if(_taskCountList[index].id.toString() == 'Completed') {
+  //     return Navigator.pushNamedAndRemoveUntil(
+  //         context, CompletedTaskListScreen().name, (predicate) => false);
+  //   }
+  // }
 
 
 
@@ -34,6 +47,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {

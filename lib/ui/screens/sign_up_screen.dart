@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/data/services/network_caller.dart';
 import 'package:untitled/data/utils/urls.dart';
+import 'package:untitled/data/utils/validation.dart';
 import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 import 'package:untitled/ui/widgets/show_snackbar_message.dart';
@@ -61,45 +62,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(hintText: 'Email'),
-                  validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Email is required';
-                    }
-                    return null;
-                  },
+                  validator: (value) => AllValidation().formValidation (value, 'Email is required')
                 ),
                 TextFormField(
                   controller: _firstNameTEController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(hintText: 'First Name'),
-                  validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'First Name is required';
-                    }
-                    return null;
-                  },
+                  validator: (value) => AllValidation().formValidation (value, 'First Name is required')
                 ),
                 TextFormField(
                   controller: _lastNameTEController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(hintText: 'Last Name'),
-                  validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Last Name is required';
-                    }
-                    return null;
-                  },
+                  validator: (value) => AllValidation().formValidation (value, 'Last Name is required')
                 ),
                 TextFormField(
                   controller: _mobileTEController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(hintText: 'Mobile'),
-                  validator: (String? value) {
-                    if (value?.trim().isEmpty ?? true) {
-                      return 'Mobile Number is required';
-                    }
-                    return null;
-                  },
+                  validator: (value) => AllValidation().formValidation (value, 'Mobile Number is required')
                 ),
                 TextFormField(
                   controller: _passwordTEController,
@@ -196,6 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _mobileTEController.clear();
       _passwordTEController.clear();
       showSnackbarMessage(context, 'User created successfully');
+      Navigator.pushNamedAndRemoveUntil(context, SignInScreen().name, (predicate)=>false);
     } else {
       showSnackbarMessage(context, response.errorMessage.toString(), true);
     }
