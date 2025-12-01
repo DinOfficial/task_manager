@@ -17,5 +17,8 @@ class Urls {
   static String emailVerify(String email) =>
       '$_baseUrl/RecoverVerifyEmail/$email';
 
+  static String emailVerifyOTP(String email, String otp) =>
+      '$_baseUrl/RecoverVerifyOtp/$email/$otp';
+
   static String deleteTask(String statusId) => '$_baseUrl/deleteTask/$statusId';
 }

@@ -5,6 +5,7 @@ import 'package:untitled/data/utils/urls.dart';
 import 'package:untitled/data/utils/validation.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
 import 'package:untitled/ui/screens/otp_verify_screen.dart';
+import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:untitled/ui/widgets/screen_background.dart';
 import 'package:untitled/ui/widgets/show_snackbar_message.dart';
 
@@ -35,26 +36,35 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 10,
               children: [
                 const SizedBox(height: 100),
                 Text(
                   'Your Email Address',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
+                const SizedBox(height: 8),
                 Text(
                   'A 6 digit verification code will be sent to this email address',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(hintText: 'Email'),
-                  validator: (value) =>AllValidation().formValidation(value, 'Please input valid email') ,
+                  validator: (value) => AllValidation().formValidation(
+                    value,
+                    'Please input valid email',
+                  ),
                 ),
-                FilledButton(
-                  onPressed: _moveNextScreen,
-                  style: FilledButton.styleFrom(),
-                  child: Icon(Icons.arrow_circle_right_outlined, size: 30),
+                const SizedBox(height: 12),
+                Visibility(
+                  visible: !_emailVerifyInProgress,
+                  replacement: CenteredCircularProgressIndicator(),
+                  child: FilledButton(
+                    onPressed: _moveNextScreen,
+                    style: FilledButton.styleFrom(),
+                    child: Icon(Icons.arrow_circle_right_outlined, size: 30),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Center(
@@ -81,34 +91,38 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
   }
 
   void _signIn() {
-    Navigator.pushNamedAndRemoveUntil(context, SignInScreen().name, (p)=>false);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      SignInScreen().name,
+      (p) => false,
+    );
   }
 
   void _moveNextScreen() {
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _emailVerify();
     }
   }
 
-  Future<void> _emailVerify()async{
+  Future<void> _emailVerify() async {
+    final email = _emailController.text;
     _emailVerifyInProgress = true;
     setState(() {});
-    final NetworkResponse response = await NetWorkCaller().getRequest(Urls.emailVerify(_emailController.text.trim()));
-    
-    if(response.isSuccess){
+    final NetworkResponse response = await NetWorkCaller().getRequest(
+      Urls.emailVerify(email.trim()),
+    );
+
+    if (response.isSuccess) {
       showSnackbarMessage(context, response.body['data']);
 
-      if(response.body['status'] == 'success'){
-        Navigator.pushNamed(context, OtpVerifyScreen().name);
+      if (response.body['status'] == 'success') {
+        Navigator.pushNamed(context, OtpVerifyScreen().name, arguments: email);
       }
-
-    }else{
-      showSnackbarMessage(context, 'This email is not registerd', true);
+    } else {
+      showSnackbarMessage(context, response.body['data'], true);
     }
 
     _emailVerifyInProgress = false;
     setState(() {});
-    
   }
-
 }
