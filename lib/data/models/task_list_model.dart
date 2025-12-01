@@ -1,3 +1,5 @@
+import 'package:date_time_format/date_time_format.dart';
+
 class TaskListModel {
   String id;
   String title;
@@ -15,15 +17,17 @@ class TaskListModel {
     required this.createdDate,
   });
 
-  factory TaskListModel.fromJson(Map<String, dynamic> jsonData){
+  factory TaskListModel.fromJson(Map<String, dynamic> jsonData) {
     return TaskListModel(
-        id: jsonData['_id'],
-        title: jsonData['title'],
-        description: jsonData['description'],
-        status: jsonData['status'],
-        email: jsonData['email'],
-        createdDate: jsonData['createdDate']
+      id: jsonData['_id'],
+      title: jsonData['title'],
+      description: jsonData['description'],
+      status: jsonData['status'],
+      email: jsonData['email'],
+      createdDate: DateTimeFormat.format(
+        DateTime.parse(jsonData['createdDate']),
+        format: DateTimeFormats.american,
+      ),
     );
   }
-
 }

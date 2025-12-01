@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/ui/screens/add_new_task_screen.dart';
-import 'package:untitled/ui/screens/flash_screen.dart';
+import 'package:untitled/ui/screens/splash_screen.dart';
 import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
 import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
 import 'package:untitled/ui/screens/otp_verify_screen.dart';

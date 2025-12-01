@@ -38,6 +38,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   image_picker: ^1.2.0
   shared_preferences: ^2.5.3
+  date_time_format: ^2.0.1
 
 dev_dependencies:
   flutter_test:
