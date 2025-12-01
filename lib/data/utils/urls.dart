@@ -14,5 +14,8 @@ class Urls {
   static String updateTaskStatus(String statusId, String status) =>
       '$_baseUrl/updateTaskStatus/$statusId/$status';
 
+  static String emailVerify(String email) =>
+      '$_baseUrl/RecoverVerifyEmail/$email';
+
   static String deleteTask(String statusId) => '$_baseUrl/deleteTask/$statusId';
 }
