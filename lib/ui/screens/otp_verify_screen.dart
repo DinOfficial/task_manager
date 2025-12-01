@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -128,20 +130,30 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
     final email = ModalRoute.of(context)!.settings.arguments.toString();
     final otp = _optTEController.text.trim();
 
+    // String resetPasswordArguments(String email, String otp){
+    //   return (email,otp);
+    // }
+
     final NetworkResponse response = await NetWorkCaller().getRequest(
       Urls.emailVerifyOTP(email, otp),
     );
+    _otpVerifyInProgress = false;
+    setState(() {});
     if (response.isSuccess && response.body['status'] == 'success') {
       showSnackbarMessage(context, 'OTP Verification successful !');
-      Navigator.pushNamed(context, ResetPasswordScreen().name);
+      Navigator.pushNamed(
+        context,
+        ResetPasswordScreen().name,
+        arguments: {
+          'email' : email,
+          'otp' : otp
+        },
+      );
     } else {
       showSnackbarMessage(
         context,
         response.body['data'] ?? 'OTP verification failed',
       );
     }
-
-    _otpVerifyInProgress = false;
-    setState(() {});
   }
 }
