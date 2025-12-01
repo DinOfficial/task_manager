@@ -8,7 +8,7 @@ import 'package:untitled/ui/screens/profile_screen.dart';
 import 'package:untitled/ui/screens/reset_password_screen.dart';
 import 'package:untitled/ui/screens/sign_up_screen.dart';
 
-import 'log_in_screen.dart';
+import 'ui/screens/log_in_screen.dart';
 
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
@@ -19,7 +19,7 @@ class TaskManagerApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: navigatorKay,
       debugShowCheckedModeBanner: false,
-      title: 'Task Manager',
+      title: 'Task Manager APP',
       theme: ThemeData(
         useMaterial3: true,
         inputDecorationTheme: InputDecorationTheme(

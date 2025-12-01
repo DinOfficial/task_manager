@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled/data/utils/auth_controller.dart';
 import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/ui/screens/app.dart';
+import 'package:untitled/app.dart';
 
 class NetWorkCaller {
 
