@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:untitled/data/models/user_model.dart';
-import 'package:untitled/data/services/network_caller.dart';
-import 'package:untitled/data/utils/auth_controller.dart';
-import 'package:untitled/data/utils/urls.dart';
-import 'package:untitled/data/utils/validation.dart';
-import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
-import 'package:untitled/ui/widgets/show_snackbar_message.dart';
-import 'package:untitled/ui/widgets/tm_app_bar.dart';
+import 'package:task_manager_app/data/models/user_model.dart';
+import 'package:task_manager_app/data/services/network_caller.dart';
+import 'package:task_manager_app/data/utils/auth_controller.dart';
+import 'package:task_manager_app/data/utils/urls.dart';
+import 'package:task_manager_app/data/utils/validation.dart';
+import 'package:task_manager_app/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:task_manager_app/ui/widgets/show_snackbar_message.dart';
+import 'package:task_manager_app/ui/widgets/tm_app_bar.dart';
 import '../widgets/screen_background.dart';
 import 'package:flutter/foundation.dart';
 

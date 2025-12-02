@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:untitled/data/services/network_caller.dart';
-import 'package:untitled/data/utils/urls.dart';
-import 'package:untitled/data/utils/validation.dart';
-import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/ui/screens/reset_password_screen.dart';
-import 'package:untitled/ui/widgets/centered_circular_progress_indicator.dart';
-import 'package:untitled/ui/widgets/screen_background.dart';
-import 'package:untitled/ui/widgets/show_snackbar_message.dart';
+import 'package:task_manager_app/data/services/network_caller.dart';
+import 'package:task_manager_app/data/utils/urls.dart';
+import 'package:task_manager_app/data/utils/validation.dart';
+import 'package:task_manager_app/ui/screens/log_in_screen.dart';
+import 'package:task_manager_app/ui/screens/reset_password_screen.dart';
+import 'package:task_manager_app/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:task_manager_app/ui/widgets/screen_background.dart';
+import 'package:task_manager_app/ui/widgets/show_snackbar_message.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({super.key});

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/ui/screens/add_new_task_screen.dart';
-import 'package:untitled/ui/screens/splash_screen.dart';
-import 'package:untitled/ui/screens/forgot_password_email_screen.dart';
-import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
-import 'package:untitled/ui/screens/otp_verify_screen.dart';
-import 'package:untitled/ui/screens/profile_screen.dart';
-import 'package:untitled/ui/screens/reset_password_screen.dart';
-import 'package:untitled/ui/screens/sign_up_screen.dart';
+import 'package:task_manager_app/ui/screens/add_new_task_screen.dart';
+import 'package:task_manager_app/ui/screens/splash_screen.dart';
+import 'package:task_manager_app/ui/screens/forgot_password_email_screen.dart';
+import 'package:task_manager_app/ui/screens/main_bottom_nav_holder_screen.dart';
+import 'package:task_manager_app/ui/screens/otp_verify_screen.dart';
+import 'package:task_manager_app/ui/screens/profile_screen.dart';
+import 'package:task_manager_app/ui/screens/reset_password_screen.dart';
+import 'package:task_manager_app/ui/screens/sign_up_screen.dart';
 
 import 'ui/screens/log_in_screen.dart';
 

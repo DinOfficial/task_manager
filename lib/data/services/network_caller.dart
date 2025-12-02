@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:untitled/data/utils/auth_controller.dart';
-import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/app.dart';
+import 'package:task_manager_app/data/utils/auth_controller.dart';
+import 'package:task_manager_app/ui/screens/log_in_screen.dart';
+import 'package:task_manager_app/app.dart';
 
 class NetWorkCaller {
 

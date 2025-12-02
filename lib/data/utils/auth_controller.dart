@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled/data/models/user_model.dart';
+import 'package:task_manager_app/data/models/user_model.dart';
 
 class AuthController {
   static final String _tokenKey = "token";

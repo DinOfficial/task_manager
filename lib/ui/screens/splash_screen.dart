@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/data/utils/auth_controller.dart';
-import 'package:untitled/ui/screens/log_in_screen.dart';
-import 'package:untitled/ui/screens/main_bottom_nav_holder_screen.dart';
-import 'package:untitled/ui/utils/asset_path.dart';
-import 'package:untitled/ui/widgets/screen_background.dart';
+import 'package:task_manager_app/data/utils/auth_controller.dart';
+import 'package:task_manager_app/ui/screens/log_in_screen.dart';
+import 'package:task_manager_app/ui/screens/main_bottom_nav_holder_screen.dart';
+import 'package:task_manager_app/ui/utils/asset_path.dart';
+import 'package:task_manager_app/ui/widgets/screen_background.dart';
 
 class FlashScreen extends StatefulWidget {
   const FlashScreen({super.key});
